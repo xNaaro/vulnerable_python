@@ -1,0 +1,19 @@
+<!doctype html>
+<title>Pickle</title>
+<head>
+<h1>Python Pickle loads vulnerability</h1>
+</head>
+<body>
+<h3>Sample code used</h3>
+
+<pre>prick = base64.b64decode(input_data.decode())
+pickle.loads(prick)</pre>
+<h2>Upload pickle data object file or base64 encoded input value</h2>
+<form method=post enctype=multipart/form-data>
+    <label for="fname">Pickle data object file:</label><br>
+    <input type=file name=file><br><br>
+    <label for="fname">Pickle data input text (base64)</label><br>
+    <input type=text name=input_data><br><br>
+    <input type=submit value=Send><br>
+</form>
+</body>
