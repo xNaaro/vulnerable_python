@@ -1,12 +1,8 @@
-import yaml
+# import yaml
 import pickle
-import xml
-import os
+# import xml
 import base64
-import logging
-from flask import Flask, flash, request, redirect, url_for, render_template
-from werkzeug.utils import secure_filename
-
+from flask import Flask, flash, request, redirect, render_template
 from outputgrabber import OutputGrabber
 
 app = Flask(__name__)
@@ -16,6 +12,7 @@ app.secret_key = "super secret key"
 @app.route('/')
 def index():
     return 'Index Page'
+
 
 @app.route('/pickle', methods=['GET', 'POST'])
 def pickle_injection():
@@ -47,9 +44,11 @@ def pickle_injection():
 def yaml_injection():
     return 'Hello, World'
 
+
 @app.route('/xml')
 def xml_injection():
     return 'Hello, World'
+
 
 @app.route('/input')
 def input_injection():

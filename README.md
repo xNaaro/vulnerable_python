@@ -1,5 +1,5 @@
 # Vulnerable Python server
-## Decription
+## Description
 
 This project aims to be educational about Python desaralization and common vulnerabilities.
 Will provide an different rest URL path for each of the security issues.

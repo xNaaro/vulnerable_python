@@ -3,7 +3,10 @@ import sys
 import threading
 import time
 
-# Credits to craymichael https://stackoverflow.com/questions/24277488/in-python-how-to-capture-the-stdout-from-a-c-shared-library-to-a-variable
+# Credits to craymichael
+# https://stackoverflow.com/questions/24277488/in-python-how-to-capture-the-stdout-from-a-c-shared-library-to-a-variable # noqa
+
+
 class OutputGrabber(object):
     """
     Class used to grab standard output or another stream.
@@ -72,7 +75,7 @@ class OutputGrabber(object):
         and save the text in `capturedtext`.
         """
         while True:
-            char = os.read(self.pipe_out,1).decode(self.origstream.encoding)
+            char = os.read(self.pipe_out, 1).decode(self.origstream.encoding)
             if not char or self.escape_char in char:
                 break
             self.capturedtext += char
