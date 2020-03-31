@@ -11,7 +11,7 @@ app.secret_key = "super secret key"
 
 @app.route('/')
 def index():
-    return 'Index Page'
+    return render_template('index.html')
 
 
 @app.route('/pickle', methods=['GET', 'POST'])

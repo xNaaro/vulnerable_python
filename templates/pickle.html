@@ -1,19 +1,30 @@
-<!doctype html>
-<title>Pickle</title>
-<head>
+{% extends "base.html" %}
+{% block title %}Pickle{% endblock %}
+{% block content %}
 <h1>Python Pickle loads vulnerability</h1>
-</head>
-<body>
-<h3>Sample code used</h3>
+<div class="container-fluid p-3 my-3 border">
+        This site has a vulnerable backend application to Pickle deseralization attacks.<br><br>
 
-<pre>prick = base64.b64decode(input_data.decode())
-pickle.loads(prick)</pre>
-<h2>Upload pickle data object file or base64 encoded input value</h2>
-<form method=post enctype=multipart/form-data>
-    <label for="fname">Pickle data object file:</label><br>
-    <input type=file name=file><br><br>
-    <label for="fname">Pickle data input text (base64)</label><br>
-    <input type=text name=input_data><br><br>
-    <input type=submit value=Send><br>
-</form>
-</body>
+        Choose whether you want to use a manually crafted pickle object or an already base 64 encoded object.<br>
+        Proper execution of a exploit will result with stdout from the server.<br>
+        You can also create reverse shells or whatever other exploit prefer.<br><br>
+    <h2>Example code used by the backend.</h2>
+    <pre>
+    prick = base64.b64decode(input_data.decode())
+    pickle.loads(prick)
+    </pre>
+    <h2>Upload pickle data base64 encoded input value or a data object file</h2>
+
+    <form class="form-inline" method=post enctype=multipart/form-data>
+        <div class="form-group">
+          <label for="fname">Pickle data input text (base64)</label>
+          <input type=text name=input_data id='input_data'>
+        </div>
+        <div class="form-group">
+            <label for="fname">Pickle data object file</label>
+            <input type=file name=file id="file">
+        </div>
+        <input type=submit value=Send><br>
+    </form> 
+</div> 
+{% endblock %}
