@@ -7,13 +7,13 @@ Will provide an different rest URL path for each of the security issues.
 ## Vulnerabilities done
 
 * Pickle
+* YAML injection
+* XML Xternal Entity injection
+* eval RCE
 
 ## Vulnerabilities missing TBD
 
-* YAML injection
-* XML injection
-* input RCE
-* eval RCE
+* exec RCE
 * Assert bypass
 * Common input checks bypass
 

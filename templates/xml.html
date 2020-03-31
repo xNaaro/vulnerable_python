@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}XML{% endblock %}
+{% block content %}
+<h1>Python XML Xternal Entity injection (XXE) vulnerability</h1>
+<div class="container-fluid p-3 my-3 border">
+        This site has a vulnerable backend application to XML XXE deseralization attacks.<br><br>
+
+        Proper execution of a exploit will result with stdout from the server.<br>
+        You can also create reverse shells or whatever other exploit prefer.<br><br>
+    <h2>Example code used by the backend.</h2>
+    <pre>
+        doc = parse(filename)
+        for event, node in doc:
+            doc.expandNode(node)
+    </pre>
+    <h2>XML Entity Injection</h2>
+    <form class="form-inline" method=post enctype=multipart/form-data>
+        <div class="form-group">
+          <label for="fname">Paste XML.</label>
+          <input type=text name=input_data id='input_data' class="form-control" size=100>
+        </div>
+        <input type=submit value=Send><br>
+    </form> 
+</div> 
+{% endblock %}
