@@ -10,6 +10,7 @@ Will provide an different rest URL path for each of the security issues.
 * YAML injection
 * XML Xternal Entity injection
 * eval RCE
+* subprocess.call RCE
 
 ## Vulnerabilities missing TBD
 
@@ -21,7 +22,7 @@ Will provide an different rest URL path for each of the security issues.
 ## Usage
 
 ```
-export FLASK_APP=vuln_server.py ; export FLASK_ENV=development ; flask run
+export FLASK_APP=server.py ; export FLASK_ENV=development ; flask run
 ```
 
 ## TODO

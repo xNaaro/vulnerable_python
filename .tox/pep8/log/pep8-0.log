@@ -1,0 +1,4 @@
+action: pep8, msg: getenv
+cwd: /media/xnaaro/EXT_SSD/repos/vulnerable_python/.tox
+cmd: /usr/bin/python3 -m virtualenv --no-download --python /usr/bin/python3 pep8
+OSError: [Errno 38] Function not implemented: '/usr/bin/python3' -> '/media/xnaaro/EXT_SSD/repos/vulnerable_python/.tox/pep8/bin/python'

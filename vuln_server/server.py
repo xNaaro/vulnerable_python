@@ -5,10 +5,11 @@ import subprocess
 import yaml
 
 from flask import Flask, flash, request, redirect, render_template
-from outputgrabber import OutputGrabber
 from xml.dom.pulldom import parseString
 from xml.sax import make_parser
 from xml.sax.handler import feature_external_ges
+
+from vuln_server.outputgrabber import OutputGrabber
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
