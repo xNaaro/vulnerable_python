@@ -1,7 +1,9 @@
-import yaml
-import pickle
 import base64
+import pickle
 import random
+import subprocess
+import yaml
+
 from flask import Flask, flash, request, redirect, render_template
 from outputgrabber import OutputGrabber
 from xml.dom.pulldom import parseString
@@ -19,11 +21,21 @@ def index():
 
 @app.route('/pickle', methods=['GET', 'POST'])
 def pickle_injection():
+    """Pickle object command injection/execution.
+
+    This funtion will evaluate if the user includes a file or
+    a pickle base64 object and load the object.
+    """
     if request.method == 'POST':
+        # Check if data is not empty, post forms has all params defined which
+        # may be empty and cause unexpected behaviour.
         if request.form['input_data'] != '':
             try:
+                # Instanciate a different stdout grabber for subprocess out.
                 output = OutputGrabber()
                 with output:
+                    # Load base64 encoded pickle object, output from the
+                    # exploit is stored into Outputgrabber stdout.
                     pickle.loads(base64.b64decode(request.form['input_data']))
                 return output.capturedtext
             except Exception as e:
@@ -46,11 +58,17 @@ def pickle_injection():
 @app.route('/yaml', methods=['GET', 'POST'])
 def yaml_injection():
     if request.method == 'POST':
+        # Check if data is not empty, post forms has all params defined which
+        # may be empty and cause unexpected behaviour.
         if request.form['input_data'] != '':
             try:
+                # Instanciate a different stdout grabber for subprocess out.
                 output = OutputGrabber()
                 with output:
-                    yaml.load(request.form['input_data'], Loader=yaml.UnsafeLoader)
+                    # Load unsafe YAML input, output from the exploit
+                    # is stored into Outputgrabber stdout.
+                    yaml.load(request.form['input_data'],
+                              Loader=yaml.UnsafeLoader)
                 return output.capturedtext
             except Exception as e:
                 return "Server Error: {}:".format(str(e))
@@ -62,7 +80,11 @@ def yaml_injection():
 @app.route('/xml', methods=['GET', 'POST'])
 def xml_injection():
     if request.method == 'POST':
+        # Check if data is not empty, post forms has all params defined which
+        # may be empty and cause unexpected behaviour.
         if request.form['input_data'] != '':
+            # Instanciate an XML parser allowing unsafe external sources to
+            # to be parsed by xml.parseString.
             parser = make_parser()
             parser.setFeature(feature_external_ges, True)
             doc = parseString(request.form['input_data'], parser=parser)
@@ -77,11 +99,15 @@ def xml_injection():
 @app.route('/eval', methods=['GET', 'POST'])
 def eval_bypass():
     if request.method == 'POST':
+        # Check if data is not empty, post forms has all params defined which
+        # may be empty and cause unexpected behaviour.
         if request.form['input_data'] != '':
-            data = random.randint(1,1000)
+            data = random.randint(1, 1000)
             try:
+                # Instanciate a different stdout grabber for subprocess out.
                 output = OutputGrabber()
                 with output:
+                    # Eval input data and execute code from it.
                     if data != eval(request.form['input_data']):
                         pass
                 return output.capturedtext
@@ -91,6 +117,23 @@ def eval_bypass():
             return redirect(request.url)
     return render_template('eval.html')
 
-@app.route('/exec')
+
+@app.route('/subprocess', methods=['GET', 'POST'])
 def exec_bypass():
-    return render_template('exec.html')
+    if request.method == 'POST':
+        # Check if data is not empty, post forms has all params defined which
+        # may be empty and cause unexpected behaviour.
+        if request.form['input_data'] != '':
+            try:
+                # Instanciate a different stdout grabber for subprocess out.
+                output = OutputGrabber()
+                with output:
+                    # Execute system command with an unsafe input parameter.
+                    subprocess.call("ping -c1 " + request.form['input_data'],
+                                    shell=True)
+                return output.capturedtext
+            except Exception as e:
+                return "Server Error: {}:".format(str(e))
+        else:
+            return redirect(request.url)
+    return render_template('subprocess.html')
