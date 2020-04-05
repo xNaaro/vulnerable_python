@@ -17,6 +17,11 @@ Run local flask server at http://localhost:5000
 export FLASK_APP=server.py ; export FLASK_ENV=development ; flask run
 ```
 
+## Example exploits
+
+Sample code exploits are located at exploits/ directory.
+Read carefully the code to make sure you understand what it does and change what is needed.
+
 ## Vulnerabilities done
 
 * Pickle

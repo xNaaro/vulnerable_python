@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block content_title %}{% endblock %}</h1>
+<div class="container-fluid p-3 my-3 border">
+    {% block content_description %}
+    {% endblock %}
+    <h2>Example code used by the backend.</h2>
+    <pre>
+        {% block content_code%}
+        {% endblock %}
+    </pre>
+    <h2>{{ form_title }}</h2>
+    <form class="form-inline" method=post enctype=multipart/form-data>
+        {% if form_input_text is defined %}
+        <div class="form-group">
+          <label for="fname">{{ form_input_text }}</label>
+          <input type=text name=input_data id='input_data' class="form-control" size="{{ input_size | default(100) }}">
+        </div>
+        {% endif %}
+        {% if form_input_file is defined %}
+        <div class="form-group">
+            <label for="fname">{{ form_input_file }}</label>
+            <input type=file name=file id="file">
+        </div>
+        {% endif %}
+        <input type=submit value=Send><br>
+    </form> 
+</div> 
+{% endblock %}

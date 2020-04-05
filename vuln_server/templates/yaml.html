@@ -1,28 +1,18 @@
-{% extends "base.html" %}
+{% extends "base_content.html" %}
 {% block title %}YAML{% endblock %}
-{% block content %}
-<h1>Python YAML loads vulnerability</h1>
-<div class="container-fluid p-3 my-3 border">
-        This site has a vulnerable backend application to YAML deseralization attacks.<br><br>
+{% block content_title %}Python YAML loads vulnerability{% endblock %}
+{% block content_description %}
+This site has a vulnerable backend application to YAML deseralization attacks.<br><br>
 
-        Retrive the contents from /root/flag file.<br>
-        You can also create reverse shells or whatever other payload prefer.<br><br>
-    <h2>Example code used by the backend.</h2>
-    <pre>
-        yaml.load(data, Loader=yaml.UnsafeLoader)
-    </pre>
-        In older versions of pyyaml default loader is the UnsafeLoader, which allows arbitrary code execution by default.
-    <pre>
-        yaml.load(data)
-    </pre>
-    <h2>YAML code injection / Remote code execution</h2>
-
-    <form class="form-inline" method=post enctype=multipart/form-data>
-        <div class="form-group">
-          <label for="fname">Insert YAML code.</label>
-          <input type=text name=input_data id='input_data' class="form-control" size=100>
-        </div>
-        <input type=submit value=Send><br>
-    </form> 
-</div> 
+Retrive the contents from /root/flag file.<br><br>
 {% endblock %}
+{% block content_code%}
+yaml.load(data, Loader=yaml.UnsafeLoader)
+</pre>
+In older versions of pyyaml default loader is the UnsafeLoader, which allows arbitrary code execution by default.
+<pre>
+yaml.load(data)
+{% endblock %}
+
+{% set form_title = 'YAML code injection / Remote code execution' %}
+{% set form_input_text = 'Insert YAML code' %}
